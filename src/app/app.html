@@ -1,0 +1,71 @@
+<div *ngIf="isOffline" class="offline-banner">
+  <i class="fas fa-wifi-slash"></i> Modo sin conexión: La información mostrada es limitada.
+</div>
+<div class="container" *ngIf="showInfo; else loading">
+  
+  <header class="hero" [ngStyle]="{'background-image': 'url(' + (heroImage || showInfo.image?.original) + ')'}">
+    <div class="hero-content">
+      <span class="badge" *ngIf="showInfo.status">{{ showInfo.status }}</span>
+      <h1>{{ showInfo.name }}</h1>
+      
+      <div class="info-tags">
+        <span *ngFor="let genre of showInfo.genres">{{ genre }}</span>
+        <span *ngIf="showInfo.rating?.average">⭐ {{ showInfo.rating.average }}</span>
+      </div>
+
+      <div class="summary" [innerHTML]="showInfo.summary"></div>
+      
+      <div class="actions">
+<button class="cta-button" (click)="verTrailer()">
+  Ver Tráiler
+</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content-section" *ngIf="!isOffline">
+    
+    <section class="group-section">
+      <h2>Protagonistas</h2>
+      <div class="grid-container">
+        <div class="card" *ngFor="let actor of cast">
+          <div class="img-container">
+            <img [src]="actor.person.image?.medium || 'assets/no-image.png'" [alt]="actor.person.name">
+          </div>
+          <div class="card-body">
+            <h3>{{ actor.person.name }}</h3>
+            <p>como {{ actor.character.name }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="group-section">
+      <h2>Guía de Episodios</h2>
+      <div class="grid-container">
+        <div class="card" *ngFor="let ep of episodes"> <div class="img-container">
+            <img [src]="ep.image?.medium || showInfo.image?.medium" [alt]="ep.name">
+          </div>
+          <div class="card-body">
+            <h3>T{{ ep.season }} | E{{ ep.number }}: {{ ep.name }}</h3>
+            <p>{{ ep.airdate | date:'mediumDate' }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<ng-template #loading>
+  <div class="loader-container">
+    <div class="spinner"></div>
+    <p>Cargando información de la serie...</p>
+  </div>
+</ng-template>
+
+<button class="install-prompt" 
+        *ngIf="showInstallButton && !isOffline" 
+        (click)="instalarPWA()">
+  Instalar App
+</button>

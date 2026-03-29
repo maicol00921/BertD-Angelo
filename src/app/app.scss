@@ -1,0 +1,207 @@
+$accent-color: #007bff; 
+$bg-dark: #0a0a0a;
+$card-bg: #1a1a1a;
+$text-main: #ffffff;
+$text-muted: #a3a3a3;
+:host {
+  display: block;
+  background-color: $bg-dark;
+  color: $text-main;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.offline-banner {
+  background: #ffc107;
+  color: #000;
+  text-align: center;
+  padding: 10px;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.hero {
+  position: relative;
+  height: 70vh;
+  background-size: cover;
+  background-position: center 20%;
+  display: flex;
+  align-items: center;
+  padding: 0 5%;
+
+  @media (min-width: 1024px) {
+    height: 85vh;
+    padding: 0 10%;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.9) 20%, transparent 80%),
+                linear-gradient(to top, $bg-dark 5%, transparent 40%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 700px;
+
+    .badge {
+      background: $accent-color;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 8vw, 4.5rem);
+      margin: 15px 0;
+      line-height: 1.1;
+    }
+
+    .info-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+      
+      span {
+        color: $text-muted;
+        font-weight: 500;
+        border-right: 1px solid #444;
+        padding-right: 10px;
+        &:last-child { border: none; }
+      }
+    }
+
+    .summary {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #ddd;
+      display: -webkit-box;
+      -webkit-line-clamp: 4; 
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+  }
+}
+.content-section {
+  width: 100%;
+  display: block;
+  overflow: visible; 
+  @media (min-width: 1024px) { padding: 4rem 10%; }
+
+  .group-section {
+    margin-bottom: 4rem;
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid $accent-color;
+      padding-left: 15px;
+    }
+  }
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+  gap: 30px;
+  width: 100%;
+  padding-bottom: 50px; 
+
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+  }
+}
+.card {
+  background: $card-bg;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  }
+  .img-container {
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .card-body {
+    padding: 12px;
+    h3 {
+      font-size: 0.95rem;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    p {
+      color: $text-muted;
+      font-size: 0.8rem;
+      margin: 5px 0 0;
+    }
+  }
+}
+.cta-button {
+  background: $text-main;
+  color: #000;
+  border: none;
+  padding: 12px 30px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  .spinner {
+    border: 4px solid rgba(255,255,255,0.1);
+    border-top: 4px solid $accent-color;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+}
+.install-prompt {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: $accent-color;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: bold;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  z-index: 999;
+}
+
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
