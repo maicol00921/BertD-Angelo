@@ -2,8 +2,8 @@
   "name": "BertD-angelo",
   "short_name": "BertD-angelo",
   "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
+  "scope": "./",
+  "start_url": "./",
   "icons": [
     {
       "src": "icons/icon-72x72.png",
